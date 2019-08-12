@@ -1,0 +1,67 @@
+{% load staticfiles %}
+
+{% for index in index_content %}
+    <div class="alert alert-info-jerry ">
+        <div class="row">
+            <div class="col-md-1">
+                <a href="/profile/{{ index.article.user.id }}">
+                    {% autoescape off %}
+                        {{ index.article.user.profile }}
+                    {% endautoescape %}
+                </a>
+            </div>
+            <div class="col-md-9 ">
+                <a href="/profile/?uid={{ index.article.user.id }}"><h4>{{ index.article.user.nickname }}</h4></a>
+                <p>{{ index.article.user.self_description }}</p>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/article?qid={{ index.question_id }}"><h3>{{ index.question_title }}</h3></a>
+            </div>
+        </div>
+
+        {% autoescape off %}
+
+            {{ index.simple_desc|truncatewords_html:10 }}
+
+        {% endautoescape %}
+        <hr/>
+        <h4>
+            {% load humanize %}
+            <span class="glyphicon glyphicon-heart"><code>{{ index.likes }}</code>&nbsp;</span>
+            <span class="glyphicon glyphicon-calendar"><code>{{ index.date_publish|date:'Y年 M  j号  D' }}</code>&nbsp;</span>
+        </h4>
+    </div>
+{% endfor %}
+
+<div class="text-center">
+
+    <ul class="pager">
+        <li>
+            {% if query.has_previous %}
+                <a href="?num={{ query.previous_page_number }}&searchText={{ searchText }}">&laquo;上一页</a>
+            {% endif %}
+        </li>
+        {#        Page {{ query.number }} of {{ query.paginator.num_pages }}.#}
+        <li >
+            <a style="background-color: #5bc0de;color: #0f0f0f">{{ query.number }}</a>
+        </li>
+        /
+        <li>
+            <a>{{ query.paginator.num_pages }}</a>
+        </li>
+        <li>
+            {% if query.has_next %}
+
+                <a href="?num={{ query.next_page_number }}&searchText={{ searchText }}">下一页&raquo;</a>
+
+            {% endif %}
+        </li>
+    </ul>
+
+</div>

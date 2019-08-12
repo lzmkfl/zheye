@@ -1,0 +1,12 @@
+
+
+{% block content %}
+  <p>Add a new topic:</p>
+
+  <form action="{% url 'zheyes:addQuestion' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">add question</button>
+  </form>
+    
+{% endblock content %}

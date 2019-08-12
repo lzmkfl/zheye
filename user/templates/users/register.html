@@ -1,0 +1,14 @@
+{% extends "zheyes/base.html" %}
+
+{% block main_content %}
+
+  <form method="post" action="{% url 'user:register' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+        
+    <button name="submit">register</button>
+    <input type="hidden" name="next"
+      value="{% url 'zheyes:index' %}" />
+  </form>
+    
+{% endblock %}
